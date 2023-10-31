@@ -109,31 +109,37 @@ So basically after configuring the AudioDatabase using config method, you can us
 
 2. ### Audio Methods
 
-    1. **Play :** this method creates audio sources and play that channel through the audio source. We combined some functionalities in one method. The play methos can get three things that two of them are set by default.
+    1. **Play :** this method creates audio sources and play that channel through the audio source. We combined some functionalities in one method. The play methos can get three things that two of them are set by default. You can play your song with a delay or you can play it sequentially.
 
-to play a song and add it to the queue and set it to the active audio
+    ```C#
+    AudioSystem.Play(string audioName, float delay = 0, bool sequential = false);
+    AudioSystem.Play(string channelName, string audioName, float delay = 0, bool sequential = false);
+    ```
 
-```C#
-AudioSystem.Play(string audioName);
-```
+    2. **Play One Shot :** You can even play your sounds with play one shot, this method won't cancel any of playing songs that are currently playing in AudioSource.
 
-to stop a song and delete it from queue and set the active audio to none
+    ```C#
+    AudioSystem.PlayOneShot(string audioName);
+    AudioSystem.PlayOneShot(string channelName, string audioName)
+    ```
 
-```C#
-AudioSystem.Stop(string audioName);
-```
+    3. **Stop Channel :** If you want to stop any playing AudioSource that you played from *Play* or *PlayOneShot*, you can use this method. You can even stop it with delay or without transition.
 
-to pause a song and add it to the pause list
+    ```C#
+    AudioSystem.StopChannel(string channelName, bool sudden = false, float delay = 0);
+    ```
 
-```C#
-AudioSystem.Pause(string audioName);
-```
+    4. **Stop All Channels :** This method will stop all the playing channels that you played in code. You can even stop it with delay or without transition.
 
-to unpause a song and delete it from the pause list
+    ```C#
+    AudioSystem.StopAllChannels(bool sudden = false, float delay = 0);
+    ```
 
-```C#
-AudioSystem.Unpause(string audioName);
-```
+    5. **IsChannelPlaying :** It will be called when you want to check if a specific channel is playing or not.
+
+    ```C#
+    AudioSystem.IsChannelPlaying(string channelName);
+    ```
 
 | Method's name | Arguments | Description |
 | ------------- | --------- | ----------- |
@@ -145,55 +151,10 @@ AudioSystem.Unpause(string audioName);
 | `PlayOneShot` | string | to play the desired auido in one shot and not interrupte any playing audio |
 | `StopChannel` | string, bool, float | to stop the desired channel |
 | `StopAllChannels` | bool, float | to stop all the playing channels |
+|`IsChannelPlaying`| string | check if a specific channel is playing |
 
 ---
 
 ## Features
 
-- [ ] Audio Scriptable Object.
-- [ ] Transition Scriptable Object.
-- [ ] Audio Database.
-- [ ] Master Volume.
-- [ ] Channel Volume.
-- [ ] Volume = Master Volume *Channel Volume* AudioChannel.VolumeModifier;
-
-#### Added Bonus
-
-Audio System :
-
-- Dict<string, AudioChannel> channels;
-- Dict<string, int> channelsVolume;
-- Master Volume.
-
-Audio Channel :
-
-- Volume Modifier.
-- Dict<string, ASO>;
-- Queue<AudioSource> queue;
-- AudioSource activeSource;
-
-Audio Channel Scriptable Object :
-
-- Name.
-- Sources = 1.
-- Volume = 1.
-- Audio Scriptable Objects.
-
-Audio Database :
-
-- Name.
-- Channels.
-
-Audio Scriptable Object:
-
-- Name.
-- Audio Clip.
-- Transition SO.
-- Transition Duration Modifier.
-
-Transition Scriptable Object:
-
-- Name.
-- AnimationCurve TransitionIn;
-- AnimationCurve TransitionOut;
-- Transition Duration.
+- [ ]
